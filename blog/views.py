@@ -35,30 +35,14 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
-# def login(request):
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             login(request, user)
-#             return redirect('post_list')
-#     else:
-#         form = UserCreationForm()
-#     return render(request, 'registration/register.html', {'form': form})
-
 def blog(request, post_id):
     post = Post.objects.get(id=post_id)
-    # if the methode is Post
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES, instance=post)
-    # If the form is valid
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/')
-    #yes, save
 
-    # #redirect to home
-    # No, Show Error
         else:
             return HttpResponseRedirect(form.errors.as_json())
     return render(request, "blog-view.html", {'post': post})
