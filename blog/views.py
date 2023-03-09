@@ -10,6 +10,16 @@ from .forms import PostForm
 @login_required
 def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+        else:
+            return HttpResponseRedirect(form.errors.as_json())
+
+    posts = Post.objects.all().order_by('-created_at')[:20]
+    form = PostForm()
     return render(request, 'blog-main-page.html', {'posts': posts})
 
 

@@ -67,6 +67,16 @@
 
     {% csrf_token %}
     <div class="content">
+        <section class="post_form">
+            <form action="/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+    
+                <input type="text" name="title" placeholder="Title" required>
+                <input type="text" name="author" placeholder="Name" required>
+                <textarea name="content" placeholder="Blog Content" required></textarea>
+                <input type="file" id="files" name="image" required />
+                <input class="submit" type="submit" value="Create Blog" />
+            </form>
     
     <br>
     {% for post in posts %}

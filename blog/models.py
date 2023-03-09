@@ -8,7 +8,7 @@ class Post(models.Model):
     content = models.TextField()
     image = CloudinaryField(blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.CharField('Name',max_length=25)
     
     def __str__(self):
         return self.title
